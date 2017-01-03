@@ -74,10 +74,11 @@ def for_graph(read_order_ok,dict_overlaps, listofreads,concatenated):
         overlaptot.append(overlap)
         lengthreadtot.append([len(b.seq) for b in overlapseq])
         indexcoverage = ([[] for x in range(len(lengthreadtot))])
-        begin = 0 
+        begin = 0
         for i in range(len(lengthreadtot)):
             indexcoverage[i].append(begin)
             indexcoverage[i].append(begin+lengthreadtot[i][0])
             begin += (lengthreadtot[i][0]-overlaptot[i])
-        indexcoverage[-1][1] = len(concatenated)
+        indexcoverage[-1].append(begin)
+        indexcoverage[-1].append(len(concatenated))
     return indexcoverage

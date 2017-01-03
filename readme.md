@@ -9,7 +9,7 @@ To build the contig:
 python parser.py -i data/coding_challenge_data_set.txt
 To visualize the results and create a png:
 python graph.py -i graph.txt
-You must run parser.py BEFORE graph.py. 
+You must run parser.py BEFORE graph.py, and all the output will be saved in a folder called "results"
 
 ####There are 3 scripts 
 - functions.py: containing all the functions needed
@@ -36,14 +36,10 @@ You must run parser.py BEFORE graph.py.
  Does this recursively, until the entire sequence of the last read is added.
  8. for_graph(read_order_ok,dict_overlaps, listofreads,concatenated): This will use matplotlib to draw a line with the index of each reads mapped on the contigs. It outputs a png graph.
 
+####Comments
+This script is quick but rely on perfect matches between the sequences. I usually use other software (velvet for example) which will allow to assembly much bigger dataset with smaller size reads (the output if the hiseq I have been working with are ore abour 250 bp). 
 
-
-
-
-
-
-
-####As a reminder: Challenge:
+####Challenge:
 
 The input to the problem is at most 50 DNA sequences (i.e, the character set is limited to T/C/G/A) whose length does not exceed 1000 characters. The sequences are given in FASTA format (https://en.wikipedia.org/wiki/FASTA_format). These sequences are all different fragments of one chromosome.
 
