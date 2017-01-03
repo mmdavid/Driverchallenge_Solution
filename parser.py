@@ -3,6 +3,7 @@ import sys
 import time
 import argparse
 import Bio
+import os
 from Bio import SeqIO
 from Bio.Seq import Seq
 from Bio.SeqRecord import SeqRecord
@@ -42,22 +43,25 @@ if __name__ == '__main__':
 	end = time.time()
 	duration = end-start
 
+#making an output directory 
+	outputdir = "./results/"
+	if not os.path.exists(os.path.dirname(outputdir)):
+		os.makedirs(os.path.dirname(outputdir))
+#saving the assembly in a file called "assembly.fasta" and printing it on the termimal
 	rec = SeqRecord(id='longestassembly', description='', seq=contig_final)
 	print "The final contig has a length of %d bp, here it is \n%s" %(len(contig_final),contig_final)
+	SeqIO.write(rec, os.path.join(outputdir,"assembly.fasta"), "fasta")
 
-	#saving the assembly in a file called "assembly.fasta"
-	SeqIO.write(rec, "assembly.fasta", "fasta")
-
-
-	#saving log
-	with open("log.txt", "w") as f:
+#saving log
+	with open(os.path.join(outputdir, "log.txt"), "w") as f:
 		sis=str(args.Infile)
 		f.write("command: python parser_getthelongestcontig.py '-i' %s \n" %sis)
 		sstime = str(duration)
 		f.write("It took %s to assemble \n" %sstime)
 		sorderok=str(orderok)
 		f.write("Names of each sequenced align in that order %s\n" %sorderok)
-
-	with open("graph.txt", "w") as g:
+		
+#saving the text file for the graph
+	with open(os.path.join(outputdir,"graph.txt"), "w") as g:
 		sindex_for_graph = str(index_for_graph)
 		g.write(sindex_for_graph)

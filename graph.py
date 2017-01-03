@@ -4,6 +4,7 @@ import matplotlib.pyplot as plt
 import sys
 import argparse
 import json
+import os
 
 
 parser = argparse.ArgumentParser(description= \
@@ -25,4 +26,7 @@ ax.set_xlim(0,index_for_graph[-1][1])
 ax.set_ylabel('Number of Reads')
 ax.set_xlabel('Reads Overlapping')
 ax.grid(True)
-plt.savefig('Assembly_graph.png')
+outputdir = "./results/"
+if not os.path.exists(os.path.dirname(outputdir)):
+	os.makedirs(os.path.dirname(outputdir))
+plt.savefig(os.path.join(outputdir, 'Assembly_graph.png'))

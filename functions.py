@@ -44,8 +44,11 @@ def best_overlap_from_the_dict(dict_overlaps):
             return k
 
 def final_order(first, dict_overlaps):
-    nextRead = best_overlap_from_the_dict(dict_overlaps[first])
-    return [first] + final_order(nextRead, dict_overlaps)
+    if max(dict_overlaps[first].values()) < 5:
+        return [first]
+    else:
+        nextRead = best_overlap_from_the_dict(dict_overlaps[first])
+        return [first] + final_order(nextRead, dict_overlaps)
 
 def put_contig_together(read_order_ok, listofreads, dict_overlaps):
     contigs = list()
