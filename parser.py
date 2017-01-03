@@ -18,7 +18,6 @@ from functions import put_contig_together
 from functions import for_graph
 
 
-
 if __name__ == '__main__':
 	#input and Output files description
 	parser = argparse.ArgumentParser(description= \
@@ -62,4 +61,3 @@ if __name__ == '__main__':
 	with open("graph.txt", "w") as g:
 		sindex_for_graph = str(index_for_graph)
 		g.write(sindex_for_graph)
-

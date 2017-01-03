@@ -11,10 +11,10 @@ def import_file_aslist(File):
         selectsewlist = list(SeqIO.parse(input_handle, "fasta"))
     return selectsewlist
 
-def find_overlap(eachseq,eachseq2):
-    for i in range(len(eachseq)):
-        if eachseq.seq[i:] == eachseq2.seq[:len(eachseq.seq)-i]:
-            sequencematching = eachseq.seq[i:]
+def find_overlap(seq1,seq2):
+    for i in range(len(seq1)):
+        if seq1.seq[i:] == seq2.seq[:len(seq1.seq)-i]:
+            sequencematching = seq1.seq[i:]
             return sequencematching
 
 def what_overlap(listofreads):
@@ -37,18 +37,15 @@ def find_first_read(dict_overlaps):
         if not signifOverlaps:
             return i
 
-def best_overlap_from_the_dict(d):
+def best_overlap_from_the_dict(dict_overlaps):
     m = max(d.values())
-    for k in d:
-        if d[k] == m:
+    for k in dict_overlaps:
+        if dict_overlaps[k] == m:
             return k
 
-def final_order(first, d):
-    if max(d[first].values()) < 5:
-        return [first]
-    else:
-        nextRead = best_overlap_from_the_dict(d[first])
-        return [first] + final_order(nextRead, d)
+def final_order(first, dict_overlaps):
+    nextRead = best_overlap_from_the_dict(dict_overlaps[first])
+    return [first] + final_order(nextRead, dict_overlaps)
 
 def put_contig_together(read_order_ok, listofreads, dict_overlaps):
     contigs = list()
@@ -62,7 +59,7 @@ def put_contig_together(read_order_ok, listofreads, dict_overlaps):
         concatenated += s
     return concatenated
 
-def for_graph(read_order_ok,dict_overlaps, listofreads,concatenated ):
+def for_graph(read_order_ok,dict_overlaps, listofreads,concatenated):
     no_overlaptot = list()
     overlaptot = list()
     lengthreadtot = list()
@@ -81,5 +78,3 @@ def for_graph(read_order_ok,dict_overlaps, listofreads,concatenated ):
             begin += (lengthreadtot[i][0]-overlaptot[i])
         indexcoverage[-1][1] = len(concatenated)
     return indexcoverage
-
-
