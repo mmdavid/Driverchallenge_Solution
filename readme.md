@@ -18,7 +18,6 @@ python graph.py -i graph.txt -o results/
 - graph.py: Which will plot the reads along the newly assembled sequence. This is can helpdul to have an idea of the coverage of our contig. 
 
 ####Approach: explanation of the functions: 
-
 1. import_file_aslist(File): Import the text file provided and use biopython to read the fasta format. Create a Seq object for each sequence, stored in a list
 
 2. find_overlap(seq1,seq2): Find the overlap between 2 DNA sequences. 
@@ -38,10 +37,10 @@ python graph.py -i graph.txt -o results/
 ####Comments
 This script runs fast but rely on perfect matches between the sequences. I usually use other software (velvet for example) which will allow to assembly much bigger dataset with smaller size reads and some mismatches (the output of Hiseq dataset I have been working with are in the range of 250 bp). 
 
-####Warning matlpotlib
+####Warnings matplotlib
 Matplotlib may send out warnings "FutureWarning: elementwise comparison failed; returning scalar instead, but in the future ...." The developers indicated that the bug will be fixed "soon" on github. 
 
-####Challenge:
+####Challenge instructions:
 The input to the problem is at most 50 DNA sequences (i.e, the character set is limited to T/C/G/A) whose length does not exceed 1000 characters. The sequences are given in FASTA format (https://en.wikipedia.org/wiki/FASTA_format). These sequences are all different fragments of one chromosome.
 
 The specific set of sequences you will get satisfy a very unique property:  there exists a unique way to reconstruct the entire chromosome from these reads by gluing together pairs of reads that overlap by more than half their length. An example set of input strings is attached.
@@ -49,4 +48,3 @@ The specific set of sequences you will get satisfy a very unique property:  ther
 The output of your program should be this unique sequence that contains each of the given input strings as a substring.
 
 In addition to the code you wrote, we also ask for a README describing your general approach as well as any additional code you wrote to evaluate your solution. We would prefer your code to be written in Python, Go, Scala, Javascript, or Java.
-
