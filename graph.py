@@ -9,9 +9,11 @@ import os
 
 parser = argparse.ArgumentParser(description= \
 'This scripts will plot the reads aligned against the contig generated', usage= "\n\
-"'\033[96m' + "Argument -i Input File: "+'\033[0m' + "Text file output from parser script 'graph.txt'.")
+"'\033[96m' + "Argument -i Input File: "+'\033[0m' + "Text file output from parser script 'graph.txt'.\n\
+"'\033[96m' + "Argument -o Ouput Directory: "+'\033[0m' + "Indicate the name of an output directory.")
 
-parser.add_argument('-i',dest="Infile", help='Input file graph.txt: text file output from parser script ',required=True)
+parser.add_argument('-i',dest="Infile", help='Input file graph.txt: text file output from parser script',required=True)
+parser.add_argument('-o',dest="Outdir", help='output directory',required=True)
 (args) = parser.parse_args()
 
 
@@ -26,7 +28,7 @@ ax.set_xlim(0,index_for_graph[-1][1])
 ax.set_ylabel('Number of Reads')
 ax.set_xlabel('Reads Overlapping')
 ax.grid(True)
-outputdir = "./results/"
-if not os.path.exists(os.path.dirname(outputdir)):
-	os.makedirs(os.path.dirname(outputdir))
-plt.savefig(os.path.join(outputdir, 'Assembly_graph.png'))
+
+if not os.path.exists(os.path.dirname(args.Outdir)):
+	os.makedirs(os.path.dirname(args.Outdir))
+plt.savefig(os.path.join(args.Outdir, 'Assembly_graph.png'))

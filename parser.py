@@ -24,12 +24,14 @@ if __name__ == '__main__':
 	parser = argparse.ArgumentParser(description= \
 	'This scripts will build a contig based on the fasta file imported.', usage= "\n\
 	"'\033[96m' + "Argument -i Input File: "+'\033[0m' + "Fasta file containing sequences to align. \n\
-	The script will: \n\
-	- print the final contig, as well as a fasta file 'assembly.fasta' of the assembly \n\
-	- print a text file that can be used to visualize coverage of the assembly 'graph.txt' \n\
-	- print a log file (duration, number of read used, order of the reads, and the dicitonnanry fo overlaps")
+	'\033[96m'" + "Argument -o Ouput Directory: "+'\033[0m' + "Indicate the name of an output directory."
+	"The script will: \n\
+	- print the final contig in the terminal, and save it to a fasta file 'assembly.fasta' \n\
+	- save a text file that can be used to visualize coverage of the assembly 'graph.txt' \n\
+	- save a log file (duration, number of read used, order of the reads, and the dicitonnanry fo overlaps")
 
 	parser.add_argument('-i',dest="Infile", help='Input file, needs to be a fasta file',required=True)
+	parser.add_argument('-o',dest="Outdir", help='output directory',required=True)
 	(args) = parser.parse_args()
 
 	#actual script
@@ -44,24 +46,23 @@ if __name__ == '__main__':
 	duration = end-start
 
 #making an output directory 
-	outputdir = "./results/"
-	if not os.path.exists(os.path.dirname(outputdir)):
-		os.makedirs(os.path.dirname(outputdir))
+	if not os.path.exists(os.path.dirname(args.Outdir)):
+		os.makedirs(os.path.dirname(args.Outdir))
 #saving the assembly in a file called "assembly.fasta" and printing it on the termimal
 	rec = SeqRecord(id='longestassembly', description='', seq=contig_final)
 	print "The final contig has a length of %d bp, here it is \n%s" %(len(contig_final),contig_final)
-	SeqIO.write(rec, os.path.join(outputdir,"assembly.fasta"), "fasta")
+	SeqIO.write(rec, os.path.join(args.Outdir,"assembly.fasta"), "fasta")
 
 #saving log
-	with open(os.path.join(outputdir, "log.txt"), "w") as f:
+	with open(os.path.join(args.Outdir, "log.txt"), "w") as f:
 		sis=str(args.Infile)
 		f.write("command: python parser_getthelongestcontig.py '-i' %s \n" %sis)
 		sstime = str(duration)
 		f.write("It took %s to assemble \n" %sstime)
 		sorderok=str(orderok)
 		f.write("Names of each sequenced align in that order %s\n" %sorderok)
-		
+
 #saving the text file for the graph
-	with open(os.path.join(outputdir,"graph.txt"), "w") as g:
+	with open(os.path.join(args.Outdir,"graph.txt"), "w") as g:
 		sindex_for_graph = str(index_for_graph)
 		g.write(sindex_for_graph)
