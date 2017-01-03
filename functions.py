@@ -38,7 +38,7 @@ def find_first_read(dict_overlaps):
             return i
 
 def best_overlap_from_the_dict(dict_overlaps):
-    m = max(d.values())
+    m = max(dict_overlaps.values())
     for k in dict_overlaps:
         if dict_overlaps[k] == m:
             return k
