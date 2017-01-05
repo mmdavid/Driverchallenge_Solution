@@ -6,7 +6,7 @@ python parser.py --help
 python graph.py --help
 You must run parser.py BEFORE graph.py, and all the output will be saved in a folder called "results" 
 
-####Example:
+####Examples:
 Step 1 - Build the contig:
 python parser.py -i data/coding_challenge_data_set.txt -o results/
 Step 2 - Visualize the contig coverage, and create a png:
